@@ -19,7 +19,7 @@ func Create() error {
 	}
 
 	t := model.NewTicket()
-	dir := getTicketDir(t.IDAsString())
+	dir := getTicketDir(t.ID.String())
 	if err := os.Mkdir(dir, defaultDirPerms); err != nil {
 		return err
 	}

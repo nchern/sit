@@ -34,10 +34,17 @@ Project:    prj
 Tag:        tag;tag
 */
 
+type Identifier uuid.UUID
+
+// Identifier returns ID as a string in a canonical representation
+func (id Identifier) String() string {
+	return strings.ToLower(hex.EncodeToString(id[:]))
+}
+
 // Ticket represents an issue ticket in the system
 //TODO: better name?
 type Ticket struct {
-	ID      uuid.UUID
+	ID      Identifier
 	State   ticketState
 	User    string
 	Project string
@@ -51,7 +58,7 @@ type Ticket struct {
 // NewTicket creates a new ticket instance
 func NewTicket() *Ticket {
 	return &Ticket{
-		ID:          uuid.New(),
+		ID:          Identifier(uuid.New()),
 		State:       stateOpen,
 		Created:     time.Now(),
 		User:        os.Getenv("USER"),
@@ -59,11 +66,6 @@ func NewTicket() *Ticket {
 		Title:       "<Enter title here>",
 		Description: "<Enter description here>",
 	}
-}
-
-// IDAsString returns ID as a string in a canonical representation
-func (t *Ticket) IDAsString() string {
-	return strings.ToLower(hex.EncodeToString(t.ID[:]))
 }
 
 // CreatedAsString returns Created time as a canonical string
@@ -74,7 +76,7 @@ func (t *Ticket) CreatedAsString() string {
 // ToText writes ticket as text to a given writer
 func (t *Ticket) ToText(w io.Writer) error {
 	lines := []string{
-		fmt.Sprintf("ID: %s", t.IDAsString()),
+		fmt.Sprintf("ID: %s", t.ID),
 		fmt.Sprintf("State: %s", t.State),
 		fmt.Sprintf("User: %s", t.User),
 		fmt.Sprintf("Project: %s", t.Project),
@@ -107,7 +109,7 @@ func ParseTicketFrom(r io.Reader) (*Ticket, error) {
 			if err != nil {
 				return nil, err
 			}
-			t.ID = id
+			t.ID = Identifier(id)
 		}
 		if v, found := parseField("User: ", l); found {
 			t.User = v
