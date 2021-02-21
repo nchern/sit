@@ -86,7 +86,7 @@ func (t *Ticket) ToText(w io.Writer) error {
 	return nil
 }
 
-// ParseFrom creates a new ticket and parses its contents from a given reader
+// ParseTicketFrom creates a new ticket and parses its contents from a given reader
 func ParseTicketFrom(r io.Reader) (*Ticket, error) {
 	t := &Ticket{}
 	scanner := bufio.NewScanner(r)

@@ -46,12 +46,12 @@ func createIssueFile(path string, t *model.Ticket) error {
 }
 
 // Edit brings an editor to edit a given issue
-func Edit(partialId string) error {
+func Edit(partialID string) error {
 	if err := checkIsRepo(); err != nil {
 		return err
 	}
 
-	found, err := findOne(partialId)
+	found, err := findOne(partialID)
 	if err != nil {
 		return err
 	}
@@ -61,12 +61,12 @@ func Edit(partialId string) error {
 }
 
 // Delete deletes a given issue
-func Delete(partialId string) error {
+func Delete(partialID string) error {
 	if err := checkIsRepo(); err != nil {
 		return err
 	}
 
-	found, err := findOne(partialId)
+	found, err := findOne(partialID)
 	if err != nil {
 		return err
 	}
@@ -74,7 +74,7 @@ func Delete(partialId string) error {
 	return os.RemoveAll(filepath.Join(issuesDir, found[0]))
 }
 
-// List lists all issues to a given writer
+// ListTo lists all issues to a given writer
 func ListTo(w io.Writer) error {
 	entries, err := ioutil.ReadDir(issuesDir)
 	if err != nil {

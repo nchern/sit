@@ -60,8 +60,8 @@ func fullTicketPath(dir string) string {
 	return filepath.Join(dir, defaultIssueFile)
 }
 
-func findOne(partialId string) ([]string, error) {
-	partialId = strings.ToLower(partialId)
+func findOne(partialID string) ([]string, error) {
+	partialID = strings.ToLower(partialID)
 	entries, err := ioutil.ReadDir(issuesDir)
 	if err != nil {
 		return nil, err
@@ -72,16 +72,16 @@ func findOne(partialId string) ([]string, error) {
 		if !entry.IsDir() {
 			continue
 		}
-		if strings.Contains(entry.Name(), partialId) {
+		if strings.Contains(entry.Name(), partialID) {
 			found = append(found, entry.Name())
 		}
 		if len(found) > 1 {
-			return nil, fmt.Errorf("Found more than 1 issues with partial id '%s':\n%s", partialId, found)
+			return nil, fmt.Errorf("Found more than 1 issues with partial id '%s':\n%s", partialID, found)
 		}
 	}
 
 	if len(found) == 0 {
-		return nil, fmt.Errorf("No issues found with ids like '%s'", partialId)
+		return nil, fmt.Errorf("No issues found with ids like '%s'", partialID)
 	}
 
 	return found, nil
