@@ -12,6 +12,10 @@ import (
 	"github.com/google/uuid"
 )
 
+const (
+	headerSeparator = "---"
+)
+
 type ticketState string
 
 var (
@@ -83,7 +87,7 @@ func (t *Ticket) ToText(w io.Writer) error {
 		fmt.Sprintf("Created: %s", t.CreatedAsString()),
 		fmt.Sprintf("Tags: %s", strings.Join(t.Tags, " ;")),
 		"",
-		"---",
+		headerSeparator,
 		"",
 		"# Title",
 		t.Title,
@@ -103,37 +107,41 @@ func (t *Ticket) ToText(w io.Writer) error {
 func ParseTicketFrom(r io.Reader) (*Ticket, error) {
 	t := &Ticket{}
 	scanner := bufio.NewScanner(r)
-	for scanner.Scan() {
-		l := strings.TrimSpace(scanner.Text())
-		if v, found := parseField("ID: ", l); found {
-			id, err := uuid.Parse(v)
-			if err != nil {
-				return nil, err
-			}
-			t.ID = Identifier(id)
-		}
-		if v, found := parseField("User: ", l); found {
-			t.User = v
-		}
-		if v, found := parseField("State: ", l); found {
-			t.State = ticketState(v)
-		}
-		if v, found := parseField("Created: ", l); found {
-			tm, err := time.Parse(time.RFC3339, v)
-			if err != nil {
-				return nil, err
-			}
-			t.Created = tm
-		}
 
-	}
-	if err := scanner.Err(); err != nil {
+	err := parseHeader(t, scanner)
+	if err != nil {
 		return nil, err
 	}
 
 	return t, nil
 }
 
+func parseHeader(t *Ticket, scanner *bufio.Scanner) error {
+	for scanner.Scan() {
+		l := strings.TrimSpace(scanner.Text())
+		if l == headerSeparator {
+			return nil
+		}
+		if v, found := parseField("ID: ", l); found {
+			id, err := uuid.Parse(v)
+			if err != nil {
+				return err
+			}
+			t.ID = Identifier(id)
+		} else if v, found := parseField("User: ", l); found {
+			t.User = v
+		} else if v, found := parseField("State: ", l); found {
+			t.State = ticketState(v)
+		} else if v, found := parseField("Created: ", l); found {
+			tm, err := time.Parse(time.RFC3339, v)
+			if err != nil {
+				return err
+			}
+			t.Created = tm
+		}
+	}
+	return scanner.Err()
+}
 func parseField(field, s string) (string, bool) {
 	if strings.HasPrefix(s, field) {
 		return strings.TrimPrefix(s, field), true
