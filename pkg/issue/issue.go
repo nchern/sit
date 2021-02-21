@@ -9,6 +9,8 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
+
+	"github.com/nchern/sit/pkg/model"
 )
 
 const (
@@ -49,7 +51,7 @@ func shellout(args ...string) *exec.Cmd {
 	return cmd
 }
 
-func getTicketRoot(t *ticket) string {
+func getTicketRoot(t *model.Ticket) string {
 	return filepath.Join(issuesDir,
 		strings.ToLower(hex.EncodeToString(t.ID[:])))
 }

@@ -7,6 +7,8 @@ import (
 	"os"
 	"path/filepath"
 	"time"
+
+	"github.com/nchern/sit/pkg/model"
 )
 
 // Init initialises issue tracking in the current dir
@@ -20,7 +22,7 @@ func Create() error {
 		return err
 	}
 
-	t := newTicket()
+	t := model.NewTicket()
 	dir := getTicketRoot(t)
 	if err := os.Mkdir(dir, defaultDirPerms); err != nil {
 		return err
@@ -34,7 +36,7 @@ func Create() error {
 	return shellout(path).Run()
 }
 
-func createIssueFile(path string, t *ticket) error {
+func createIssueFile(path string, t *model.Ticket) error {
 	f, err := os.Create(path)
 	if err != nil {
 		return err
@@ -92,7 +94,7 @@ func ListTo(w io.Writer) error {
 		}
 		defer f.Close()
 
-		t, err := ParseFrom(f)
+		t, err := model.ParseTicketFrom(f)
 		if err != nil {
 			return err
 		}

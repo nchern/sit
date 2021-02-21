@@ -1,4 +1,4 @@
-package issue
+package model
 
 import (
 	"bufio"
@@ -33,7 +33,9 @@ Project:    prj
 Tag:        tag;tag
 */
 
-type ticket struct {
+// Ticket represents an issue ticket in the system
+//TODO: better name?
+type Ticket struct {
 	ID      uuid.UUID
 	State   ticketState
 	User    string
@@ -45,8 +47,9 @@ type ticket struct {
 	Description string
 }
 
-func newTicket() *ticket {
-	return &ticket{
+// NewTicket creates a new ticket instance
+func NewTicket() *Ticket {
+	return &Ticket{
 		ID:          uuid.New(),
 		State:       stateOpen,
 		Created:     time.Now(),
@@ -59,7 +62,7 @@ func newTicket() *ticket {
 }
 
 // ToText writes ticket as text to a given writer
-func (t *ticket) ToText(w io.Writer) error {
+func (t *Ticket) ToText(w io.Writer) error {
 	lines := []string{
 		fmt.Sprintf("ID: %s", t.ID),
 		fmt.Sprintf("State: %s", t.State),
@@ -84,8 +87,8 @@ func (t *ticket) ToText(w io.Writer) error {
 }
 
 // ParseFrom creates a new ticket and parses its contents from a given reader
-func ParseFrom(r io.Reader) (*ticket, error) {
-	t := &ticket{}
+func ParseTicketFrom(r io.Reader) (*Ticket, error) {
+	t := &Ticket{}
 	scanner := bufio.NewScanner(r)
 	for scanner.Scan() {
 		l := strings.TrimSpace(scanner.Text())
