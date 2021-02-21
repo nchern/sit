@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/nchern/sit/issue"
+	"github.com/nchern/sit/pkg/issue"
 	"github.com/spf13/cobra"
 )
 
