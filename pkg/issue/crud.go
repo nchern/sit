@@ -1,11 +1,8 @@
 package issue
 
 import (
-	"fmt"
-	"io"
 	"io/ioutil"
 	"os"
-	"time"
 
 	"github.com/nchern/sit/pkg/model"
 )
@@ -73,11 +70,12 @@ func Delete(partialID string) error {
 	return os.RemoveAll(getTicketDir(found[0]))
 }
 
-// ListTo lists all issues to a given writer
-func ListTo(w io.Writer) error {
+// List lists all issues to a given writer
+func List() ([]*model.Ticket, error) {
+	res := []*model.Ticket{}
 	entries, err := ioutil.ReadDir(issuesDir)
 	if err != nil {
-		return err
+		return res, err
 	}
 
 	for _, entry := range entries {
@@ -89,19 +87,16 @@ func ListTo(w io.Writer) error {
 
 		f, err := os.Open(path)
 		if err != nil {
-			return err
+			return res, err
 		}
 		defer f.Close()
 
 		t, err := model.ParseTicketFrom(f)
 		if err != nil {
-			return err
+			return res, err
 		}
 
-		if _, err := fmt.Fprintf(w, "%s\t%s\t%s\t%s\n",
-			entry.Name(), t.State, t.Created.Format(time.RFC3339), t.User); err != nil {
-			return err
-		}
+		res = append(res, t)
 	}
-	return nil
+	return res, nil
 }

@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"os"
+	"fmt"
 
 	"github.com/nchern/sit/pkg/issue"
 	"github.com/spf13/cobra"
@@ -15,6 +15,22 @@ var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "lists issue",
 	Run: func(cmd *cobra.Command, args []string) {
-		must(issue.ListTo(os.Stdin))
+		must(list())
 	},
+}
+
+func list() error {
+	tickets, err := issue.List()
+	if err != nil {
+		return err
+	}
+
+	for _, t := range tickets {
+		_, err := fmt.Printf("%s\t%s\t%s\t%s\n",
+			t.IDAsString(), t.State, t.CreatedAsString(), t.User)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
