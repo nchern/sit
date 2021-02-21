@@ -5,7 +5,6 @@ import (
 	"io"
 	"io/ioutil"
 	"os"
-	"path/filepath"
 	"time"
 
 	"github.com/nchern/sit/pkg/model"
@@ -23,7 +22,7 @@ func Create() error {
 	}
 
 	t := model.NewTicket()
-	dir := getTicketRoot(t)
+	dir := getTicketDir(t.IDAsString())
 	if err := os.Mkdir(dir, defaultDirPerms); err != nil {
 		return err
 	}
@@ -56,7 +55,7 @@ func Edit(partialID string) error {
 		return err
 	}
 
-	path := fullTicketPath(filepath.Join(issuesDir, found[0]))
+	path := fullTicketPath(getTicketDir(found[0]))
 	return shellout(path).Run()
 }
 
@@ -71,7 +70,7 @@ func Delete(partialID string) error {
 		return err
 	}
 
-	return os.RemoveAll(filepath.Join(issuesDir, found[0]))
+	return os.RemoveAll(getTicketDir(found[0]))
 }
 
 // ListTo lists all issues to a given writer
@@ -86,7 +85,7 @@ func ListTo(w io.Writer) error {
 			continue
 		}
 		id := entry.Name()
-		path := fullTicketPath(filepath.Join(issuesDir, id))
+		path := fullTicketPath(getTicketDir(id))
 
 		f, err := os.Open(path)
 		if err != nil {

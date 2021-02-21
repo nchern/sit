@@ -2,6 +2,7 @@ package model
 
 import (
 	"bufio"
+	"encoding/hex"
 	"fmt"
 	"io"
 	"os"
@@ -58,17 +59,26 @@ func NewTicket() *Ticket {
 		Title:       "<Enter title here>",
 		Description: "<Enter description here>",
 	}
+}
 
+// IDAsString returns ID as a string in a canonical representation
+func (t *Ticket) IDAsString() string {
+	return strings.ToLower(hex.EncodeToString(t.ID[:]))
+}
+
+// CreatedAsString returns Created time as a canonical string
+func (t *Ticket) CreatedAsString() string {
+	return t.Created.Format(time.RFC3339)
 }
 
 // ToText writes ticket as text to a given writer
 func (t *Ticket) ToText(w io.Writer) error {
 	lines := []string{
-		fmt.Sprintf("ID: %s", t.ID),
+		fmt.Sprintf("ID: %s", t.IDAsString()),
 		fmt.Sprintf("State: %s", t.State),
 		fmt.Sprintf("User: %s", t.User),
 		fmt.Sprintf("Project: %s", t.Project),
-		fmt.Sprintf("Created: %s", t.Created.Format(time.RFC3339)),
+		fmt.Sprintf("Created: %s", t.CreatedAsString()),
 		"",
 		"---",
 		"",

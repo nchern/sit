@@ -1,7 +1,6 @@
 package issue
 
 import (
-	"encoding/hex"
 	"errors"
 	"fmt"
 	"io/ioutil"
@@ -9,8 +8,6 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
-
-	"github.com/nchern/sit/pkg/model"
 )
 
 const (
@@ -51,9 +48,8 @@ func shellout(args ...string) *exec.Cmd {
 	return cmd
 }
 
-func getTicketRoot(t *model.Ticket) string {
-	return filepath.Join(issuesDir,
-		strings.ToLower(hex.EncodeToString(t.ID[:])))
+func getTicketDir(id string) string {
+	return filepath.Join(issuesDir, id)
 }
 
 func fullTicketPath(dir string) string {
