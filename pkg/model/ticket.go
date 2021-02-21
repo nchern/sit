@@ -49,7 +49,7 @@ type Ticket struct {
 	User    string
 	Project string
 	Created time.Time
-	//Tag:        tag;tag
+	Tags    []string
 
 	Title       string
 	Description string
@@ -81,6 +81,7 @@ func (t *Ticket) ToText(w io.Writer) error {
 		fmt.Sprintf("User: %s", t.User),
 		fmt.Sprintf("Project: %s", t.Project),
 		fmt.Sprintf("Created: %s", t.CreatedAsString()),
+		fmt.Sprintf("Tags: %s", strings.Join(t.Tags, " ;")),
 		"",
 		"---",
 		"",
