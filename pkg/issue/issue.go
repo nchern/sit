@@ -11,13 +11,15 @@ import (
 )
 
 const (
-	defaultDirPerms = 0744
+	defaultDirPerms  = 0744
+	defaultFilePerms = 0644
 
 	defaultEditor = "vim"
 
 	repoRootDir      = ".sit"
 	defaultIssueFile = "main.md"
 	issuesDir        = repoRootDir + "/issues"
+	configFile       = repoRootDir + "/config"
 )
 
 var (

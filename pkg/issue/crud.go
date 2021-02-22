@@ -7,18 +7,19 @@ import (
 	"github.com/nchern/sit/pkg/model"
 )
 
-// Init initialises issue tracking in the current dir
-func Init() error {
-	return os.MkdirAll(issuesDir, defaultDirPerms)
-}
-
 // Create creates a new issue
 func Create() error {
 	if err := checkIsRepo(); err != nil {
 		return err
 	}
+	cfg, err := loadConfig()
+	if err != nil {
+		return err
+	}
 
 	t := model.NewTicket()
+	t.Project = cfg.ProjectName
+
 	dir := getTicketDir(t.ID.String())
 	if err := os.Mkdir(dir, defaultDirPerms); err != nil {
 		return err
