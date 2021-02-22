@@ -46,3 +46,6 @@ sit delete <partial-issue-id>
 1. How to make it user friendly?
 2. Short and easily usable / memorizable issue IDs
 3. Authentication / authorisation(the current idea is to rely on git signed commits)
+4. Workspaces / different projects 
+   a. How this will work together?
+   b. What should be the data model?
