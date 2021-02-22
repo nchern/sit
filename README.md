@@ -49,3 +49,4 @@ sit delete <partial-issue-id>
 4. Workspaces / different projects 
    a. How this will work together?
    b. What should be the data model?
+5. How different teams could be accounted here?
