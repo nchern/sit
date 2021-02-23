@@ -27,7 +27,7 @@ var (
 		Args: cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
 			id := args[0]
-			fmt.Println("Should close", id)
+			fmt.Println("not implemented: should close", id)
 		},
 	}
 
@@ -36,7 +36,7 @@ var (
 		Args: cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
 			id := args[0]
-			fmt.Println("Should reopen", id)
+			fmt.Println("not implemented: should reopen", id)
 		},
 	}
 )

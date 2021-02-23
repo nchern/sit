@@ -39,6 +39,9 @@ sit edit <partial-issue-id>
 
 # delete issue
 sit delete <partial-issue-id>
+
+# show help
+sit help
 ```
 
 ## Known (serious) questions
