@@ -73,6 +73,10 @@ func Delete(partialID string) error {
 
 // List lists all issues to a given writer
 func List() ([]*model.Ticket, error) {
+	if err := checkIsRepo(); err != nil {
+		return nil, err
+	}
+
 	res := []*model.Ticket{}
 	entries, err := ioutil.ReadDir(issuesDir)
 	if err != nil {
