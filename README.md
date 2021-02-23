@@ -50,6 +50,6 @@ sit help
 2. Short and easily usable / memorizable issue IDs
 3. Authentication / authorisation(the current idea is to rely on git signed commits)
 4. Workspaces / different projects 
-   a. How this will work together?
-   b. What should be the data model?
+   1. How this will work together?
+   1. What should be the data model?
 5. How different teams could be accounted here?
