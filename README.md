@@ -44,6 +44,13 @@ sit delete <partial-issue-id>
 sit help
 ```
 
+### Collaborate
+
+Sit repo is just a folder with plain text files. It can be a part of any code repo
+including standalone repos using any scm, e.g. git. The current view is that git / git workflow
+can cover the majority of collaboration use cases, like sharing, having a central repo for all issues, etc.
+In future more tight integrations with git could be added along with more tooling.
+
 ## Known (serious) questions
 
 1. How to make it user friendly?
