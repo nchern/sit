@@ -27,7 +27,7 @@ func list() error {
 
 	for _, t := range tickets {
 		_, err := fmt.Printf("%s\t%s\t%s\t%s\n",
-			t.ID, t.State, t.CreatedAsString(), t.User)
+			t.State, t.ID, t.CreatedAsString(), t.User)
 		if err != nil {
 			return err
 		}
