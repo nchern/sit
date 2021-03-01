@@ -24,23 +24,10 @@ var (
 	stateInProgress ticketState = "INPROGRESS"
 )
 
-/*
-# Title
-
-# Description
-
-
----
-ID:         abcabcabc
-State:      OPEN | CLOSED | INPROGRESS
-User:       john.doe
-Project:    prj
-Tag:        tag;tag
-*/
-
+// Identifier represents a unique ID type
 type Identifier uuid.UUID
 
-// Identifier returns ID as a string in a canonical representation
+// String returns ID as a string in a canonical representation
 func (id Identifier) String() string {
 	return strings.ToLower(hex.EncodeToString(id[:]))
 }
@@ -132,6 +119,8 @@ func parseHeader(t *Ticket, scanner *bufio.Scanner) error {
 			t.User = v
 		} else if v, found := parseField("State: ", l); found {
 			t.State = ticketState(v)
+		} else if v, found := parseField("Project: ", l); found {
+			t.Project = v
 		} else if v, found := parseField("Created: ", l); found {
 			tm, err := time.Parse(time.RFC3339, v)
 			if err != nil {
