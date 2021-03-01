@@ -27,6 +27,7 @@ func TestParseFrom(t *testing.T) {
 				Created: created,
 				Project: "test_prj",
 				State:   ticketState("CLOSED"),
+				Title:   "Expected title",
 			}},
 	}
 	for _, tt := range tests {
@@ -41,5 +42,4 @@ func TestParseFrom(t *testing.T) {
 			assert.Equal(t, tt.expected, actual)
 		})
 	}
-
 }

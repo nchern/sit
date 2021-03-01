@@ -100,7 +100,33 @@ func ParseTicketFrom(r io.Reader) (*Ticket, error) {
 		return nil, err
 	}
 
+	for scanner.Scan() {
+		l := strings.TrimSpace(scanner.Text())
+		if l == "# Title" {
+			lines, err := readSection(scanner, func(s string) bool { return strings.HasPrefix(s, "# ") })
+			if err != nil {
+				return nil, err
+			}
+			if len(lines) > 0 {
+				t.Title = lines[0]
+			}
+		}
+	}
+
 	return t, nil
+}
+
+func readSection(scanner *bufio.Scanner, shouldStop func(string) bool) ([]string, error) {
+	res := []string{}
+	for scanner.Scan() {
+		l := strings.TrimSpace(scanner.Text())
+		if shouldStop(l) {
+			break
+		}
+		res = append(res, l)
+	}
+
+	return res, scanner.Err()
 }
 
 func parseHeader(t *Ticket, scanner *bufio.Scanner) error {
