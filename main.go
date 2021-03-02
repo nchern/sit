@@ -1,7 +1,7 @@
 package main
 
-import "github.com/nchern/sit/pkg/cmd"
+import "github.com/nchern/sit/pkg/cli"
 
 func main() {
-	cmd.Execute()
+	cli.Execute()
 }
