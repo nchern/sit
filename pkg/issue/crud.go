@@ -1,6 +1,7 @@
 package issue
 
 import (
+	"io"
 	"io/ioutil"
 	"os"
 
@@ -90,13 +91,7 @@ func List() ([]*model.Ticket, error) {
 		id := entry.Name()
 		path := fullTicketPath(getTicketDir(id))
 
-		f, err := os.Open(path)
-		if err != nil {
-			return res, err
-		}
-		defer f.Close()
-
-		t, err := model.ParseTicketFrom(f)
+		t, err := loadTicket(path)
 		if err != nil {
 			return res, err
 		}
@@ -104,4 +99,34 @@ func List() ([]*model.Ticket, error) {
 		res = append(res, t)
 	}
 	return res, nil
+}
+
+// WriteByPartialID writes an issue given by partial ID to a given writer
+func WriteByPartialID(partialID string, w io.Writer) error {
+	if err := checkIsRepo(); err != nil {
+		return err
+	}
+
+	found, err := findOne(partialID)
+	if err != nil {
+		return err
+	}
+	path := fullTicketPath(getTicketDir(found[0]))
+	f, err := os.Open(path)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	_, err = io.Copy(w, f)
+	return err
+}
+
+func loadTicket(path string) (*model.Ticket, error) {
+	f, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	defer f.Close()
+
+	return model.ParseTicketFrom(f)
 }
