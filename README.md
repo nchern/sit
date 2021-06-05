@@ -1,14 +1,13 @@
 SIT - stands for the Simplest Issue Tracker
 
-Prove of Concept!
+Proof of Concept!
 
 ## Main ideas
 
-Main ideas behind this tool are:
 * Be able to keep tickets / issues together with the code, not somewhere else
 * Being distributed(as git)
 * Full integration with git
-* Open standards / data governance // needs explanation?
+* Open standards / data governance (needs explanation)
 * Allow non-cli users as well
 * SIMPLICITY
 
@@ -16,13 +15,15 @@ Main ideas behind this tool are:
 
 ### Install
 
-To edit tickets the app uses `$EDITOR` if you have it set. If it is empty `vim` is used by default.
+You need Golang to install it from source.
 
 ```sh
 make install
 ```
 
 ### Usage
+
+To edit tickets the app uses `$EDITOR` if you have it set, otherwise `vim` is used by default.
 
 ```sh
 # initialize
@@ -49,7 +50,7 @@ sit help
 Sit repo is just a folder with plain text files. It can be a part of any code repo
 including standalone repos using any scm, e.g. git. The current view is that git / git workflow
 can cover the majority of collaboration use cases, like sharing, having a central repo for all issues, etc.
-In future more tight integrations with git could be added along with more tooling.
+In future tighter integrations with git could be added along with more tooling.
 
 ## Known (serious) questions
 
