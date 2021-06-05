@@ -52,6 +52,10 @@ including standalone repos using any scm, e.g. git. The current view is that git
 can cover the majority of collaboration use cases, like sharing, having a central repo for all issues, etc.
 In future tighter integrations with git could be added along with more tooling.
 
+## Issues
+
+[issues.md](issues.md)
+
 ## Known (serious) questions
 
 1. How to make it user friendly?
