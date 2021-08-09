@@ -3,7 +3,15 @@ Important design questions and ideas
 
 ### Update repo dir structure.
 
-Introduce new subdirs to store issues
+Introduce new subdirs to store issues. The basic idea here is to keep new issues in a separate folder.
+Example 1:
+`.sit/issues/new`
+`.sit/issues/all`
+
+Example 2:
+`.sit/issues/new`
+`.sit/issues/active`
+`.sit/issues/closed`
 
 
 
