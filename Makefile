@@ -4,11 +4,7 @@ build: vet
 
 .PHONY: install
 install: test
-	@go get ./...
-
-.PHONY: lint
-lint:
-	@golint ./...
+	@go install ./...
 
 .PHONY: vet
 vet:
