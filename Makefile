@@ -1,3 +1,9 @@
+
+
+.PHONY: install-deps
+install-deps:
+	@go mod download
+
 .PHONY: build
 build: vet
 	@go build ./...
@@ -17,3 +23,10 @@ test: build
 .PHONY: open-issues-report
 open-issues-report:
 	@./bin/gen-open-issues-report.sh > issues.md
+
+.PHONY: clean
+clean:
+	@rm bin/*
+
+.PHONY: all
+all: install-deps test
