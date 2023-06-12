@@ -12,7 +12,7 @@ func init() {
 var createCmd = &cobra.Command{
 	Use:   "create",
 	Short: "creates issue",
-	Run: func(cmd *cobra.Command, args []string) {
-		must(issue.Create())
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return issue.Create()
 	},
 }

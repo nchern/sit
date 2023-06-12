@@ -13,9 +13,9 @@ func init() {
 
 var listCmd = &cobra.Command{
 	Use:   "list",
-	Short: "lists issue",
-	Run: func(cmd *cobra.Command, args []string) {
-		must(list())
+	Short: "lists issues",
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return list()
 	},
 }
 

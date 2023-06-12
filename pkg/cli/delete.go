@@ -12,8 +12,9 @@ func init() {
 var deleteCmd = &cobra.Command{
 	Use:   "delete",
 	Short: "deletes issue",
-	Args:  cobra.ExactArgs(1),
-	Run: func(cmd *cobra.Command, args []string) {
-		must(issue.Delete(args[0]))
+	// TODO: add bulk delete
+	Args: cobra.ExactArgs(1),
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return issue.Delete(args[0])
 	},
 }

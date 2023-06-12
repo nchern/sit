@@ -10,8 +10,8 @@ var rootCmd = &cobra.Command{
 	Use:   "sit",
 	Short: "Sit is a really efficient and terminal-friendly issue tracker",
 	// Long: TODO
-	Run: func(cmd *cobra.Command, args []string) {
-		cmd.Help()
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return cmd.Help()
 	},
 }
 
