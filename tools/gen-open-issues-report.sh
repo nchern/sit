@@ -1,4 +1,5 @@
-#!/bin/sh -ue
+#!/bin/sh
+set -ue
 
 
 printf "# Open issues\n\n\`\`\`\n"
