@@ -26,6 +26,7 @@ var (
 )
 
 func list() error {
+	const abbrevLen = 7
 	tickets, err := issue.List()
 	if err != nil {
 		return err
@@ -34,7 +35,7 @@ func list() error {
 	for _, t := range tickets {
 		fields := []string{
 			string(t.State),
-			t.ID.String(),
+			t.ID.Abbreviation(abbrevLen),
 			t.Title,
 		}
 		if flagVerbose {

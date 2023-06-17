@@ -32,8 +32,13 @@ func (id Identifier) String() string {
 	return strings.ToLower(hex.EncodeToString(id[:]))
 }
 
+// Abbreviation returns truncated string representation
+func (id Identifier) Abbreviation(n int) string {
+	return strings.ToLower(hex.EncodeToString(id[:n]))
+}
+
 // Ticket represents an issue ticket in the system
-//TODO: better name?
+// TODO: better name?
 type Ticket struct {
 	ID      Identifier
 	State   ticketState
