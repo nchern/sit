@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/nchern/sit/pkg/stringsext"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -26,8 +27,13 @@ func TestParseFrom(t *testing.T) {
 				User:    "john",
 				Created: created,
 				Project: "test_prj",
-				State:   ticketState("CLOSED"),
+				State:   stateClosed,
 				Title:   "Expected title",
+				Description: stringsext.Text(
+					"Expected description line 1",
+					"Expected description line 2",
+					"Expected description line 3",
+				),
 			}},
 	}
 	for _, tt := range tests {
