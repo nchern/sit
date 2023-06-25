@@ -23,9 +23,11 @@ const (
 type ticketState string
 
 var (
-	stateOpen       ticketState = "OPEN"
-	stateClosed     ticketState = "CLOSED"
-	stateInProgress ticketState = "INPROGRESS"
+	// StateOpen and others represent ticket states
+	StateOpen       ticketState = "OPEN"
+	StateInProgress ticketState = "INPROGRESS"
+	StateDone       ticketState = "DONE"
+	StateClosed     ticketState = "CLOSED"
 )
 
 // Identifier represents a unique ID type
@@ -59,7 +61,7 @@ type Ticket struct {
 func NewTicket() *Ticket {
 	return &Ticket{
 		ID:          Identifier(uuid.New()),
-		State:       stateOpen,
+		State:       StateOpen,
 		Created:     time.Now(),
 		User:        os.Getenv("USER"),
 		Project:     "not implemented", // FIXME

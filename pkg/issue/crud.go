@@ -72,7 +72,7 @@ func Delete(partialID string) error {
 	return os.RemoveAll(getTicketDir(found[0]))
 }
 
-// List lists all issues to a given writer
+// List lists all issues
 func List() ([]*model.Ticket, error) {
 	if err := checkIsRepo(); err != nil {
 		return nil, err
