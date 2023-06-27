@@ -84,3 +84,24 @@ func findOne(partialID string) ([]string, error) {
 
 	return found, nil
 }
+
+// FindIDs looks up ids matching provides substring
+func FindIDs(partialID string) ([]string, error) {
+	partialID = strings.ToLower(partialID)
+	entries, err := ioutil.ReadDir(issuesDir)
+	if err != nil {
+		return nil, err
+	}
+
+	found := []string{}
+	for _, entry := range entries {
+		if !entry.IsDir() {
+			continue
+		}
+		if strings.Contains(entry.Name(), partialID) {
+			found = append(found, entry.Name())
+		}
+	}
+
+	return found, nil
+}

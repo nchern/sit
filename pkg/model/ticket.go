@@ -20,14 +20,14 @@ const (
 	descriptionSection = "# Description"
 )
 
-type ticketState string
+type TicketState string
 
 var (
 	// StateOpen and others represent ticket states
-	StateOpen       ticketState = "OPEN"
-	StateInProgress ticketState = "INPROGRESS"
-	StateDone       ticketState = "DONE"
-	StateClosed     ticketState = "CLOSED"
+	StateOpen       TicketState = "OPEN"
+	StateInProgress TicketState = "INPROGRESS"
+	StateDone       TicketState = "DONE"
+	StateClosed     TicketState = "CLOSED"
 )
 
 // Identifier represents a unique ID type
@@ -47,7 +47,7 @@ func (id Identifier) Abbreviation(n int) string {
 // TODO: better name?
 type Ticket struct {
 	ID      Identifier
-	State   ticketState
+	State   TicketState
 	User    string
 	Project string
 	Created time.Time
@@ -169,7 +169,7 @@ func parseHeader(t *Ticket, scanner *bufio.Scanner) error {
 		} else if v, found := parseField("User: ", l); found {
 			t.User = v
 		} else if v, found := parseField("State: ", l); found {
-			t.State = ticketState(v)
+			t.State = TicketState(v)
 		} else if v, found := parseField("Project: ", l); found {
 			t.Project = v
 		} else if v, found := parseField("Created: ", l); found {

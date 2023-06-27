@@ -27,7 +27,7 @@ func TestParseFrom(t *testing.T) {
 				User:    "john",
 				Created: created,
 				Project: "test_prj",
-				State:   stateClosed,
+				State:   StateClosed,
 				Title:   "Expected title",
 				Description: stringsext.Text(
 					"Expected description line 1",

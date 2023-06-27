@@ -121,6 +121,23 @@ func WriteByPartialID(partialID string, w io.Writer) error {
 	return err
 }
 
+// FetchTicket fetches ticket by id
+func FetchTicket(id string) (*model.Ticket, error) {
+	path := fullTicketPath(getTicketDir(id))
+	return loadTicket(path)
+}
+
+// Update updates a ticket
+func Update(t *model.Ticket) error {
+	path := fullTicketPath(getTicketDir(t.ID.String()))
+	f, err := os.Create(path)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	return t.ToText(f)
+}
+
 func loadTicket(path string) (*model.Ticket, error) {
 	f, err := os.Open(path)
 	if err != nil {
