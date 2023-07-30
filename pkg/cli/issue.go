@@ -60,7 +60,7 @@ func changeTicketState(partialID string, state model.TicketState) error {
 		return err
 	}
 	if len(ids) > 1 {
-		return fmt.Errorf("Found more than 1 issues with partial id '%s':\n%s", partialID, ids)
+		return issue.NewMultipleResulsError(partialID, ids)
 	}
 	if len(ids) == 0 {
 		return fmt.Errorf("No issues found with ids like '%s'", partialID)

@@ -26,6 +26,33 @@ var (
 	errNotARepo = errors.New("not an issues repo: " + repoRootDir)
 )
 
+// MultipleResulsError returns when search yields more that one results when only one is expected
+type MultipleResulsError struct {
+	// PartialID that was used for this search
+	PartialID string
+	// Results that correspond to PartialID
+	Results []string
+}
+
+// Error implements error interface
+func (e *MultipleResulsError) Error() string {
+	results := ""
+	for i, r := range e.Results {
+		results += fmt.Sprintf("%d. %s\n", i, r)
+	}
+	return fmt.Sprintf(
+		"found more than 1 issues with partial id '%s':\n%s",
+		e.PartialID, results)
+}
+
+// NewMultipleResulsError returns a new instance of MultipleResulsError
+func NewMultipleResulsError(partialID string, results []string) *MultipleResulsError {
+	return &MultipleResulsError{
+		PartialID: partialID,
+		Results:   results,
+	}
+}
+
 func checkIsRepo() error {
 	if _, err := os.Stat(issuesDir); err != nil {
 		if os.IsNotExist(err) {
@@ -73,11 +100,11 @@ func findOne(partialID string) ([]string, error) {
 		if strings.Contains(entry.Name(), partialID) {
 			found = append(found, entry.Name())
 		}
-		if len(found) > 1 {
-			return nil, fmt.Errorf("Found more than 1 issues with partial id '%s':\n%s", partialID, found)
-		}
 	}
 
+	if len(found) > 1 {
+		return nil, NewMultipleResulsError(partialID, found)
+	}
 	if len(found) == 0 {
 		return nil, fmt.Errorf("No issues found with ids like '%s'", partialID)
 	}
