@@ -11,7 +11,7 @@ func init() {
 
 var editCmd = &cobra.Command{
 	Use:   "edit",
-	Short: "edits issue",
+	Short: "Edits issue",
 	Args:  cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		return issue.Edit(args[0])

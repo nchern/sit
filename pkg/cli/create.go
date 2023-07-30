@@ -11,7 +11,7 @@ func init() {
 
 var createCmd = &cobra.Command{
 	Use:   "create",
-	Short: "creates issue",
+	Short: "Creates issue",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		return issue.Create()
 	},

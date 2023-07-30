@@ -19,7 +19,7 @@ var (
 	listCmd = &cobra.Command{
 		Aliases: []string{"ls"},
 		Use:     "list",
-		Short:   "lists issues",
+		Short:   "Lists issues",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return list()
 		},

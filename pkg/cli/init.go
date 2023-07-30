@@ -11,7 +11,7 @@ func init() {
 
 var initCmd = &cobra.Command{
 	Use:   "init",
-	Short: "inits an issue repo in the current dir",
+	Short: "Inits an issue repo in the current dir",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		return issue.Init()
 	},

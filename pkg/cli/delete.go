@@ -11,7 +11,7 @@ func init() {
 
 var deleteCmd = &cobra.Command{
 	Use:   "delete",
-	Short: "deletes issue",
+	Short: "Deletes issue",
 	// TODO: add bulk delete
 	Args: cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
