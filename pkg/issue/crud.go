@@ -73,7 +73,7 @@ func Delete(partialID string) error {
 }
 
 // List lists all issues
-func List() ([]*model.Ticket, error) {
+func List(states ...model.TicketState) ([]*model.Ticket, error) {
 	if err := checkIsRepo(); err != nil {
 		return nil, err
 	}
@@ -95,8 +95,12 @@ func List() ([]*model.Ticket, error) {
 		if err != nil {
 			return res, err
 		}
-
-		res = append(res, t)
+		for _, st := range states {
+			if t.State == st {
+				res = append(res, t)
+				break
+			}
+		}
 	}
 	return res, nil
 }
