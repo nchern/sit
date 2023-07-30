@@ -13,6 +13,9 @@ var rootCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		return cmd.Help()
 	},
+
+	SilenceUsage:  true,
+	SilenceErrors: true,
 }
 
 func init() {
