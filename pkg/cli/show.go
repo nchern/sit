@@ -8,10 +8,12 @@ import (
 )
 
 var issueShowCmd = &cobra.Command{
-	Use:     "show",
-	Aliases: []string{"cat"},
-	Args:    cobra.ExactArgs(1),
-	Short:   "Outputs a given issue",
+	Use:               "show",
+	Aliases:           []string{"cat"},
+	Args:              cobra.ExactArgs(1),
+	ValidArgsFunction: completeIDs,
+	Short:             "Outputs a given issue",
+
 	RunE: func(cmd *cobra.Command, args []string) error {
 		return issue.WriteByPartialID(args[0], os.Stdout)
 	},

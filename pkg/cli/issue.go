@@ -29,25 +29,31 @@ var (
 		Use:   "close",
 		Short: "Closes a given issue",
 		// TODO: add bulk close (?)
-		Args: cobra.ExactArgs(1),
+		Args:              cobra.ExactArgs(1),
+		ValidArgsFunction: completeIDs,
+
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return changeTicketState(args[0], model.StateClosed)
 		},
 	}
 
 	issueOpenCmd = &cobra.Command{
-		Use:   "open",
-		Short: "Re-opens a given issue",
-		Args:  cobra.ExactArgs(1),
+		Use:               "open",
+		Short:             "Re-opens a given issue",
+		Args:              cobra.ExactArgs(1),
+		ValidArgsFunction: completeIDs,
+
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return changeTicketState(args[0], model.StateOpen)
 		},
 	}
 
 	issueDoneCmd = &cobra.Command{
-		Use:   "done",
-		Short: "Makes a given issue done",
-		Args:  cobra.ExactArgs(1),
+		Use:               "done",
+		Short:             "Makes a given issue done",
+		Args:              cobra.ExactArgs(1),
+		ValidArgsFunction: completeIDs,
+
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return changeTicketState(args[0], model.StateDone)
 		},

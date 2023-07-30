@@ -13,7 +13,9 @@ var deleteCmd = &cobra.Command{
 	Use:   "delete",
 	Short: "Deletes issue",
 	// TODO: add bulk delete
-	Args: cobra.ExactArgs(1),
+	Args:              cobra.ExactArgs(1),
+	ValidArgsFunction: completeIDs,
+
 	RunE: func(cmd *cobra.Command, args []string) error {
 		return issue.Delete(args[0])
 	},

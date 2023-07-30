@@ -3,6 +3,7 @@ package cli
 import (
 	"log"
 
+	"github.com/nchern/sit/pkg/issue"
 	"github.com/spf13/cobra"
 )
 
@@ -31,4 +32,14 @@ func must(err error) {
 	if err != nil {
 		log.Fatal("fatal: ", err)
 	}
+}
+
+func completeIDs(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+	ids, err := issue.FindIDs(toComplete)
+	if err != nil {
+		log.Printf("error: %s", err)
+		return nil, cobra.ShellCompDirectiveError
+	}
+
+	return ids, cobra.ShellCompDirectiveDefault
 }
