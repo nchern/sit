@@ -1,10 +1,11 @@
 # Open issues
 
 ```
-OPEN    Think about integrations with git
-OPEN    Add basic filtering to list command
-OPEN    Add basic workflow issue level commands
-OPEN    Add Bash auto completion
-OPEN    Add sorting functionality to 'list' subcommand
-OPEN    Handle saving a ticket with invalid fields.
+OPEN    integrations with git
+OPEN    filtering to list command
+OPEN    a ticket with invalid fields.
+OPEN    auto completion
+OPEN    functionality to 'list' subcommand
+OPEN    empty or incomplete create data
+OPEN    command: create from cli not just interactive
 ```
